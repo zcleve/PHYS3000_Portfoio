@@ -1,12 +1,13 @@
 import numpy as np
 
 
-def get_distance_matrix(pos_matrix):
+def get_distance_matricies(pos_matrix):
     # Enables input of any pos_matrix size
     rows, columns = pos_matrix.shape
 
     # Placeholder for output
     out = np.zeros([rows, rows])
+    r_hats = np.zeros([rows, rows, 3])
 
     for i in range(0, rows):
 
@@ -19,22 +20,29 @@ def get_distance_matrix(pos_matrix):
         # Using simple vector math we find the distance between the selected pt and each remaining pt
         for j in range(0, new_matrix.shape[0]):
             out[j, i] = points_distance(selected, new_matrix[j, :])
+            r_hats[j, i, :] = gen_rhat(selected, new_matrix[j, :])
+            # print(r_hats)
 
     # This output matrix is column based. The first one contains the distance from charges 1-2, 1-3, ... 1-n charges.
     # The second containing the distance from 2-3, 2-4, ... 2-n... and so on and so forth for remaining columns.
-    return out
+    return out, r_hats
 
 
-def get_electric_net_force_matrix(mag, dist):
+def coulombs_law_mag(q1, q2, r):
     # Coulomb's constant
     k = 8.99 * (10 ** 9)
+    return (k * q1 * q2) * (1 / (r ** 2))
+
+
+def get_electric_net_force_matrix(mag, pos):
+    dist, r_hats = get_distance_matricies(pos)
 
     # Easy access to the # of charges. The size of this array is directly from the number of rows in the
     # Data file provided, which represents the number of charges or elements.
     sz = mag.size
 
     # Placeholder output
-    net_f_electric = np.zeros(sz)
+    net_f_electric = np.zeros([sz, 3])
 
     # Outer loop cycles through columns of the distance matrix. More specifically, it denotes which of the n
     # Charges it is dealing with. "s1 - 1" is used to skip the column of all zeros, explained below
@@ -50,11 +58,13 @@ def get_electric_net_force_matrix(mag, dist):
             if dist[j, i] != 0:
                 # Calculates and adds the electric force from the two charges to the charge net force vector at the
                 # position corresponding to the charge selected by the outer loop
-                f_electric = (k * mag[i] * mag[j + 1]) / (dist[j, i] ** 2)
-                net_f_electric[i] = net_f_electric[i] + f_electric
+                # f_electric = (k * mag[i] * mag[j + 1]) / (dist[j, i] ** 2)
+                net_f_electric[i, :] += coulombs_law_mag(mag[i], mag[j + 1], dist[j, i]) * r_hats[j, i, :]
+                net_f_electric[j + 1, :] -= coulombs_law_mag(mag[i], mag[j + 1], dist[j, i]) * r_hats[j, i, :]
+                # net_f_electric[i] = net_f_electric[i] + f_electric
 
                 # Avoids unnecessary calculations and looping by resolving the complimentary (Newtons 3rd Law) force
-                net_f_electric[j + 1] = net_f_electric[j + 1] - f_electric
+                # net_f_electric[j + 1] = net_f_electric[j + 1] - f_electric
 
     # Output is in the form of a vector whose entries are row-based and corresponding to each charge/entry
     return net_f_electric
@@ -64,6 +74,11 @@ def points_distance(pos1, pos2):
 
     # The magnitude of a vector constructed by (pos2 - pos1) is the linear distance between the two points
     return np.linalg.norm(pos2 - pos1)
+
+
+def gen_rhat(pos1, pos2):
+    r_hat = pos2 - pos1
+    return r_hat * (1 / np.linalg.norm(pos2 - pos1))
 
 
 def simulate_coulombs_law(path):
@@ -87,10 +102,10 @@ def simulate_coulombs_law(path):
     position_matrix = charges[:, 1:num_rows - 1]
 
     # Converts the matrix of charge positions into their relevant distances between each other
-    dist_matrix = get_distance_matrix(position_matrix)
+    # dist_matrix = get_distance_matricies(position_matrix)
 
     # Placeholder matrix of the net electric force in order to limit function calls
-    nf_matrix = get_electric_net_force_matrix(charge_magnitudes, dist_matrix)
+    nf_matrix = get_electric_net_force_matrix(charge_magnitudes, position_matrix)
 
     for i in range(0,num_rows):
         print("The net electric force on charge/entry no.", i, "is:", nf_matrix[i], "newtons")
