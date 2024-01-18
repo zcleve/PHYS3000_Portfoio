@@ -11,3 +11,10 @@ Author: Zackary Cleveland
     engine" working here. Ideally, I would have a framework of code such that I need only add new equations
     of physics to. In other words, scripts that understand and handle common 'objects' in physics. I.e. force
     vectors, velocity vectors, acceleration vectors, etc. Blah blah blah, tbc
+
+1/18/2024
+Author: Zackary Cleveland
+
+        As of today I think I've almost figured out version control? This prompt is complete
+        minus the visualization component. This update is to consolidate the github and truly
+        try to version control lol.
