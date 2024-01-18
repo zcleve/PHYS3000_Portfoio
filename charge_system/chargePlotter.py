@@ -6,3 +6,4 @@ import pyvista
 
 def init_plot(path):
     charge_magnitudes, charge_positions = fs.read_magnitude_coordinate_format(path)
+    print("this is new code")
