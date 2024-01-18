@@ -9,5 +9,4 @@ import chargePlotter as plt
 PATH = ('C:/Users/Zackary Cleveland/OneDrive - Wentworth Institute of Technology/2024 '
         'Spring/progressReport2/read_files/charge_list.txt')
 
-# nfcs.simulate_coulombs_law(PATH)
-plt.init_plot(PATH)
+nfcs.simulate_coulombs_law(PATH)
