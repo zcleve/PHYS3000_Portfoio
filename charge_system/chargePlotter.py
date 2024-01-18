@@ -1,0 +1,1 @@
+# Goals: plot the charges on an x-y grid and show the net forces as arrows
