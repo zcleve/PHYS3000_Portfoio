@@ -20,7 +20,7 @@ def get_distance_matricies(pos_matrix):
         # Using simple vector math we find the distance between the selected pt and each remaining pt
         for j in range(0, new_matrix.shape[0]):
             out[j, i] = points_distance(selected, new_matrix[j, :])
-            r_hats[j, i, :] = gen_rhat(selected, new_matrix[j, :])
+            r_hats[j, i, :] = gen_r_hat(selected, new_matrix[j, :])
             # print(r_hats)
 
     # This output matrix is column based. The first one contains the distance from charges 1-2, 1-3, ... 1-n charges.
@@ -76,7 +76,7 @@ def points_distance(pos1, pos2):
     return np.linalg.norm(pos2 - pos1)
 
 
-def gen_rhat(pos1, pos2):
+def gen_r_hat(pos1, pos2):
     r_hat = pos2 - pos1
     return r_hat * (1 / np.linalg.norm(pos2 - pos1))
 
@@ -107,8 +107,10 @@ def simulate_coulombs_law(path):
     # Placeholder matrix of the net electric force in order to limit function calls
     nf_matrix = get_electric_net_force_matrix(charge_magnitudes, position_matrix)
 
-    for i in range(0,num_rows):
-        print("The net electric force on charge/entry no.", i, "is:", nf_matrix[i], "newtons")
+    for i in range(1, num_rows + 1):
+        if i == 1:
+            print("Each net force vector has format: magnitude = [x y z] in the [ihat jhat khat] directions")
+        print("The net electric force on charge/entry no.", i, "is:", nf_matrix[i - 1], "newtons")
     print("\n")
 
 
