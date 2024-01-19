@@ -1,5 +1,5 @@
 import numpy as np
-
+import vectorMath as vm
 
 def get_distance_matricies(pos_matrix):
     # Enables input of any pos_matrix size
@@ -9,7 +9,7 @@ def get_distance_matricies(pos_matrix):
     out = np.zeros([rows, rows])
     r_hats = np.zeros([rows, rows, 3])
 
-    for i in range(0, rows):
+    for i in range(rows):
 
         # Selected becomes our "current pos"
         selected = pos_matrix[i, :]
@@ -18,7 +18,7 @@ def get_distance_matricies(pos_matrix):
         new_matrix = pos_matrix[i + 1:, :]
 
         # Using simple vector math we find the distance between the selected pt and each remaining pt
-        for j in range(0, new_matrix.shape[0]):
+        for j in range(new_matrix.shape[0]):
             out[j, i] = points_distance(selected, new_matrix[j, :])
             r_hats[j, i, :] = gen_rhat(selected, new_matrix[j, :])
             # print(r_hats)
@@ -46,11 +46,11 @@ def get_electric_net_force_matrix(mag, pos):
 
     # Outer loop cycles through columns of the distance matrix. More specifically, it denotes which of the n
     # Charges it is dealing with. "s1 - 1" is used to skip the column of all zeros, explained below
-    for i in range(0, sz - 1):
+    for i in range(sz - 1):
 
         # This inner loops takes the charge selected by the outer loop and calculates the necessary forces between
         # It and relevant charges.
-        for j in range(0, sz):
+        for j in range(sz):
 
             # The way the distance matrix is designed, it will fill towards a column of all zeros, loosing a single
             # Entry each column. This is to prevent redundancy in that the distance 1 - 2 and 2 - 1 are the same.
