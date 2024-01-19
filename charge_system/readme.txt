@@ -1,4 +1,4 @@
-1/17/2024
+1/17/2024 - Entry 001
 Author: Zackary Cleveland
 
         So far this prompt is 70% complete. I need to run by the numbers w/ Prof. but I hand calc.'d a few,
@@ -12,9 +12,12 @@ Author: Zackary Cleveland
     of physics to. In other words, scripts that understand and handle common 'objects' in physics. I.e. force
     vectors, velocity vectors, acceleration vectors, etc. Blah blah blah, tbc
 
-1/18/2024
+1/18/2024 - Entry 002 (its 12:30am on 1/19 lol)
 Author: Zackary Cleveland
 
-        As of today I think I've almost figured out version control? This prompt is complete
-        minus the visualization component. This update is to consolidate the github and truly
-        try to version control lol.
+        Over the course of today I've done alot. I believe I have figured out github, lmao. And I added part
+    of the visualization component. I've also started writing code with an emphasis on re-usability. This can be seen
+    in current progress in my fileStripper.py and vectorMath.py scripts. Eventually those will house more and more methods
+    as I approach more and more prompts, and hopefully more script ideas arise too. I still need to replace the created methods
+    in vectorMath in nFCS.py, as well as finish out some needed functions. I plan on having this prompt done-done and a new git
+    repo started for my reusable scripts tomorrow.
