@@ -1,6 +1,4 @@
-# This file contains functions involving vectors that are useful and not found in numpy or other libraries.
-# I will attempt to optimize all functions here at some point.
-
+# Decided not to finish out for the charges prompt
 import numpy as np
 import numpy.linalg as npl
 
@@ -25,7 +23,3 @@ def normalize_vectors(vectors):
         vectors[i , :] = normalize_vector(vectors[i , :])
 
     return normalized_vectors
-
-#def points_distance
-
-#def sets_of_points_distance

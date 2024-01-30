@@ -1,11 +1,14 @@
 import numpy as np
 import vectorMath as vm
 
+# I will make a much better function to do this in vectorMath.py at some point
+# A function to take any list or array of xyz and return distances and r_hats
+# between them
 def get_distance_matricies(pos_matrix):
     # Enables input of any pos_matrix size
     rows, columns = pos_matrix.shape
 
-    # Placeholder for output
+    # Placeholders for output
     out = np.zeros([rows, rows])
     r_hats = np.zeros([rows, rows, 3])
 
@@ -27,13 +30,13 @@ def get_distance_matricies(pos_matrix):
     # The second containing the distance from 2-3, 2-4, ... 2-n... and so on and so forth for remaining columns.
     return out, r_hats
 
-
+# Solves for coulombs law's magnitude given 2 charges and a distance
 def coulombs_law_mag(q1, q2, r):
     # Coulomb's constant
     k = 8.99 * (10 ** 9)
     return (k * q1 * q2) * (1 / (r ** 2))
 
-
+# Returns a matrix
 def get_electric_net_force_matrix(mag, pos):
     dist, r_hats = get_distance_matricies(pos)
 
@@ -67,20 +70,21 @@ def get_electric_net_force_matrix(mag, pos):
                 # net_f_electric[j + 1] = net_f_electric[j + 1] - f_electric
 
     # Output is in the form of a vector whose entries are row-based and corresponding to each charge/entry
+    print(net_f_electric)
     return net_f_electric
 
-
+# Returns p2p distance
 def points_distance(pos1, pos2):
 
     # The magnitude of a vector constructed by (pos2 - pos1) is the linear distance between the two points
     return np.linalg.norm(pos2 - pos1)
 
-
+# Returns unit vector between 2 pts
 def gen_rhat(pos1, pos2):
     r_hat = pos2 - pos1
     return r_hat * (1 / np.linalg.norm(pos2 - pos1))
 
-
+# Original printout/terminal  output
 def simulate_coulombs_law(path):
 
     # Takes a file in the following format:

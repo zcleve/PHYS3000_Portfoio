@@ -1,3 +1,7 @@
+Easiest way I run main.py is by right-clicking on the charges.txt in pycharm and copying the direct path and pasting it into the path variable in main when I download from Github.
+
+
+
 1/17/2024 - Entry 001
 Author: Zackary Cleveland
 
@@ -21,3 +25,10 @@ Author: Zackary Cleveland
     as I approach more and more prompts, and hopefully more script ideas arise too. I still need to replace the created methods
     in vectorMath in nFCS.py, as well as finish out some needed functions. I plan on having this prompt done-done and a new git
     repo started for my reusable scripts tomorrow.
+
+1/30/2024 - Entry 003 (it's 11:54am)
+
+            I have finished this prompt with the visualization component to the degree of satisfaction I had desired.
+       Overall, I am unfortunately saddened by my lack of general progress towards any other coding, as I had simply just not done anything
+       for like over a week. I plan on being much more proactive and generally productive in this class and in the prompts, portfolios, and projects.
+       Time to become a Computational Physics Pro.
