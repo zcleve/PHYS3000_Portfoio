@@ -1,4 +1,4 @@
-#Zackary Cleveland PHYS3000 - P1.B
+#Zackary Cleveland PHYS3000 - P1.C
 #Units are in SI
 
 v_initial = 8.0
